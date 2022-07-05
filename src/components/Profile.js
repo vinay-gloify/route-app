@@ -1,13 +1,19 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './auth';
 
-const Profile = ({ logout }) => {
-    let navigate = useNavigate();
-    let { userId } = useParams();
+const Profile = () => {
+    const navigate = useNavigate();
+    const auth = useAuth();
+
+    const handleLogout = () => {
+        auth.logout();
+        navigate('/');
+    }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}>
-            <h3>Profile Page for userId - {userId} <button onClick={() => { navigate("/"); }}>Logout</button></h3>
+            <h3>Welcome! {auth.user} <button onClick={handleLogout}>Logout</button></h3>
         </div>
     )
 }
